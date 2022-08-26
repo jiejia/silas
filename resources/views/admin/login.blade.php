@@ -1,15 +1,33 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-</head>
-<body>
+@extends('admin.layouts.__entrance')
+@section('content')
+    <div class="block block-title">
+        <h3 class="">登录</h3>
+    </div>
+    <div class="block entrance-block mb-1">
+        <form>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="username" placeholder="账户/邮箱"/>
+            </div>
+            <div class="mb-2">
+                <input type="password" class="form-control" id="password" placeholder="密码"/>
+            </div>
+            <div class="mb-2">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                <label class="form-check-label" for="flexCheckDefault">
+                    记住登录状态
+                </label>
+            </div>
+            <div class="d-grid">
+                <button class="btn btn-primary" type="button">登录</button>
+            </div>
+        </form>
+    </div>
+    <div class="block block-footer">
+        <p><a href="/admin/forget-password">忘记密码?</a></p>
+    </div>
+@endsection
+@section('script')
+    <script type="text/javascript">
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-</body>
-</html>
+    </script>
+@endsection
