@@ -18,14 +18,6 @@ class PageController extends Controller
         return view('admin.login');
     }
 
-    /**
-     * @param Request $request
-     * @return Application|Factory|View
-     */
-    public function dashboard(Request $request): View|Factory|Application
-    {
-        return view('admin.dashboard');
-    }
 
     /**
      * @param Request $request

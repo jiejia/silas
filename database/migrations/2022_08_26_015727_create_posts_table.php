@@ -13,16 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('sila_posts', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255);
             $table->string('excerpt', 255);
             $table->text('content');
-            $table->integer('category_id')->unsigned();
             $table->integer('creator_id')->unsigned();
             $table->integer('status')->unsigned();
             $table->integer('comment_status')->unsigned();
-            $table->integer('creator_id')->unsigned();
             $table->bigInteger('views')->unsigned();
             $table->softDeletes();
             $table->timestamps();

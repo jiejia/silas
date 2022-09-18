@@ -19,6 +19,6 @@ class ValidationException extends Exception
             'code' => 422,
             'msg' => '请求参数错误',
             'errors' => $this->errors
-        ], 422);
+        ], 200);
     }
 }

@@ -8,16 +8,6 @@ use App\Admin\Requests;
 class AuthController extends ApiController
 {
     /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login']]);
-    }
-
-    /**
      * Get a JWT via given credentials.
      *
      * @param Requests\LoginRequest $request
@@ -28,7 +18,7 @@ class AuthController extends ApiController
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return $this->response()->withError(401, '用户名或密码错误');
         }
 
         return $this->respondWithToken($token);
@@ -75,9 +65,10 @@ class AuthController extends ApiController
      */
     protected function respondWithToken($token)
     {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
+        return $this->response()->withSuccess([
+            'user' => ['name' => auth()->user()->name],
+            'token' => $token,
+            'type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }

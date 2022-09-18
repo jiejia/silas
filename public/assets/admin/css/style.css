@@ -4,13 +4,179 @@ html{
     height:100%;
 }
 body{
-    background-color: #30475E;
+    /*background-color: #30475E;*/
+    height:100%;
+    overflow-y:scroll;
 }
 a,a:link,a:hover{
     text-decoration: none;
+    color:#6A097D;
 }
 
+#app{
+    display:none;
+}
+/*面板*/
+.sa-container{
+    height:100%;
+}
+header{
+    top:0;
+    height:50px;
+    background-color: #fff;
+    position:fixed;
+    width:100%;
+    box-shadow: 0 5px 10px 0 rgb(0 64 128 / 5%);
+    display:grid;
+    grid-template-columns: 180px 1fr 200px;
+    z-index: 1000;
+}
+#logo h1{
+    margin:0;
+    padding:0;
+    text-align:center;
+    font-size:26px;
+    letter-spacing: 2px;
+    line-height:50px;
+    background-color: #1a202c;
+}
+#logo h1 a{
+    color:#ddd;
+}
+#logo h1 a:hover{
+    color:#fff
+}
+
+/*导航*/
+#nav ul{
+    list-style:none;
+    display:grid;
+    grid-template-columns: repeat(4, 120px);
+    height:100%;
+    margin:0;
+    padding:0;
+}
+#nav ul li {
+    list-style:none;
+    text-align: center;
+    align-self: center;
+}
+#nav ul li a {
+    align-self: center;
+    color:#6A097D;
+    padding:5px 10px;
+    min-width:100px;
+}
+#nav ul li a.active,
+#nav ul li a:hover{
+    background-color:#6A097D;
+    color:#fff;
+}
+#user-menu ul{
+    list-style:none;
+    display:grid;
+    grid-template-columns: 250px 50px;
+    height:100%;
+    margin:0;
+    font-size:12px;
+    padding:0;
+    justify-content: end;
+}
+#user-menu ul li {
+    list-style:none;
+    text-align: right;
+    align-self: center;
+}
+#user-menu ul li a {
+    align-self: center;
+    color:#6A097D;
+    padding:5px 10px;
+    min-width:100px;
+}
+
+#main{
+    height:100%;
+    padding-top:50px;
+    margin-left:180px;
+}
+aside{
+    height:100%;
+    background-color:#393d49!important;
+    position:fixed;
+    z-index:1000;
+    left:0;
+    width:180px;
+}
+aside a,
+aside a:link,
+aside a:hover{
+    color:white;
+}
+.menu-item ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+    background-color: #1a202c;
+}
+ul.sub-menu{
+    /*display:none;*/
+}
+ul.sub-menu li a{
+    display:block;
+    width:100%;
+    line-height:35px;
+    font-size:14px;
+    text-align:left;
+    padding-left:2.5em;
+    color:#aaa;
+}
+ul.sub-menu li a:hover{
+    color:#ffffff;
+}
+ul.sub-menu li a.active{
+    background-color:#C060A1;
+    color:#fff;
+}
+
+a.menu-item-link{
+    display:grid;
+    width:100%;
+    line-height:40px;
+    font-size:14px;
+    text-align:left;
+    padding-left:2em;
+    justify-content: end;
+    grid-template-columns: 1fr 1fr;
+}
+a.menu-item-link i{
+    text-align: center;
+    align-self: center;
+}
+a.menu-item-link:active{
+    color:#fff;
+}
+
+/*主页面*/
+main{
+    height:100%;
+    padding:15px;
+}
+#breadcrumb{
+    font-size:12px;
+    margin-bottom:15px;
+}
+
+/*列表页面*/
+#pagination {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: stretch;
+    align-content:space-around;
+}
 /*公用部分*/
+#pagination ul.pagination{
+    justify-content: right!important;
+}
 
 .block{
     background-color: #fff;
@@ -28,7 +194,8 @@ a,a:link,a:hover{
     width: 100%;
 }
 .block-title{
-    background-color:#DDDDDD;
+    background-color:#C060A1;
+    color:#fff
 }
 .block-footer{
     background-color:#fff;
@@ -49,8 +216,16 @@ a,a:link,a:hover{
 .block input{
     font-size:14px
 }
+.block input.lg{
+    font-size: 18px;
+}
 .block label{
     font-size:14px;
+    text-align: right;
+    color:#666;
+    position: relative;
+}
+.block label span{
 }
 .block button{
     font-size: 14px;
@@ -61,7 +236,6 @@ a,a:link,a:hover{
 .form-line{
     display:grid;
     grid-template-columns: 1fr 1fr;
-
 }
 .form-link{
     font-size:14px;
@@ -78,4 +252,58 @@ a,a:link,a:hover{
 }
 .entrance-block{
    text-align: center;
+}
+label span{
+    color:red
+}
+.form-switch{
+    padding-left: 2.3em;
+}
+.col-form-label{
+    padding-top:0;
+}
+.form-control-row{
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 100px 1fr 0fr;
+}
+.form-control-row-md{
+    grid-template-columns: 100px 2fr 1fr;
+}
+.form-control-row-sm{
+    grid-template-columns: 100px 1fr 3fr;
+}
+.un-select{
+    -moz-user-select:none; /*火狐*/
+    -webkit-user-select:none; /*webkit浏览器*/
+    -ms-user-select:none; /*IE10*/
+    -khtml-user-select:none; /*早期浏览器*/
+    user-select:none;
+}
+.table{
+    font-size:14px
+}
+
+/*表单*/
+.form-control{
+    border-radius: 0.25rem;
+    font-size: 14px;
+}
+.form-control-wrap{
+    position:relative;
+}
+.form-control-addon{
+    display: flex;
+    align-items:center;
+    font-size:12px;
+    color:#999
+}
+.form-control-msg{
+    display:none;
+    opacity: 0.7;
+    font-size:12px;
+    color:red;
+    position: absolute;
+    right:20px;
+    top:0.6rem;
 }

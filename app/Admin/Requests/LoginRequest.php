@@ -15,8 +15,17 @@ class LoginRequest extends Request
     {
         return [
             //
-            'email' => 'required',
+            'email' => ['required', 'email'],
             'password' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'email.required' => 'email 不能为空',
+            'email.email' => 'email 格式错误',
+            'password.required' => '密码不能为空'
         ];
     }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('menus', function (Blueprint $table) {
+        Schema::create('sila_menus', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });

@@ -14,6 +14,8 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'sila_users';
+
     /**
      * The attributes that are mass assignable.
      *

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('sila_categories', function (Blueprint $table) {
             $table->id();
             $table->integer('model_id')->unsigned()->comment('所属模型');
             $table->string('name')->comment('分类名');

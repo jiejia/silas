@@ -3,7 +3,7 @@
     <div class="block block-title">
         <h3 class="">找回密码</h3>
     </div>
-    <div class="block  entrance-block mb-1">
+    <div class="block shadow entrance-block mb-1">
         <form>
             <div class="mb-3">
                 <input type="text" class="form-control" id="username" placeholder="账户/邮箱"/>
