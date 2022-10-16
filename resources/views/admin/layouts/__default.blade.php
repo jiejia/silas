@@ -17,7 +17,7 @@
 <div id="app" class="sa-container">
     <header>
         <div id="logo">
-            <h1><a href="#">后台管理</a></h1>
+            <h1><a href="#">Nothing</a></h1>
         </div>
         <div id="nav">
             <ul>
@@ -78,7 +78,20 @@
                 listData: {},
                 listSearchParams: {},
                 pagination: [],
-                detail: {}
+                detail: {},
+                controls: {
+                    "text": ["length", "valid_rule", "valid_msg"],
+                    "textarea": ["rows", "cols", "length", "valid_rule", "valid_msg"],
+                    "editor": [],
+                    "select": ["select_type", "select_source", "select_options", "select_options_url"],
+                    "datetime": ["date_format"],
+                    "numeric": ["max"],
+                    "switch": [],
+                    "slide": ["max"],
+                    "city": [],
+                    "color": [],
+                    "file": [],
+                }
             }
         },
         created() {
@@ -185,6 +198,23 @@
                     success: function(res, status){
                         if (res.code == 200) {
                             vm.detail = res.data
+                        }
+                    },
+                    stop: function(){
+                    }
+                })
+            },
+            deleteItems(link, ids) {
+                if (! confirm("确定删除吗?"))
+                    return
+                $.ajax({
+                    url: link,
+                    method: 'post',
+                    data: {"ids": ids},
+                    success: function(res, status){
+                        if (res.code == 200) {
+                            alert('删除成功');
+                            window.location.reload()
                         }
                     },
                     stop: function(){

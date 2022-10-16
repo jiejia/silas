@@ -67,11 +67,11 @@ abstract class Service
     /**
      * 删除
      *
-     * @param $conditions
+     * @param $ids
      * @return mixed
      */
-    public function delete($conditions): mixed
+    public function delete($ids): mixed
     {
-        return $this->repository->deleteWhere($conditions);
+        return $this->repository->delete($ids);
     }
 }

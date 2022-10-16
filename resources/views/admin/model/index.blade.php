@@ -25,22 +25,23 @@
                 <td>
                     <a :href="'{{ url('/admin/model/edit') }}/' + item.id">编辑</a> /
                     <a href="">查看</a> /
-                    <a href="">删除</a>
+                    <a href="javascript:;" @click="deleteItems('{{ url('/api/admin/model/delete') }}', [item.id])">删除</a>
                 </td>
             </tr>
+            <tr v-if="listData.total==0"><td colspan="6" style="text-align:center">没有记录</td></tr>
             </tbody>
         </table>
-        <nav aria-label="Page navigation" id="pagination">
+        <nav  v-if="listData.total" aria-label="Page navigation" id="pagination">
             <div>
-                <select class="form-select-sm" id="per-page" @change="getList(listData.path, this)">
-                    <option value="15" selected>15</option>
-                    <option value="30">30</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-                <label> &nbsp;每页</label>
+
             </div>
             <ul class="pagination justify-content-center">
+                <select class="form-select-sm" id="per-page" @change="getList(listData.path, this)">
+                    <option value="15" selected>15条/页</option>
+                    <option value="30">30条/页</option>
+                    <option value="50">50条/页</option>
+                    <option value="100">100条/页</option>
+                </select> &nbsp;
                 <template v-for="item in listData.links">
                     <template v-if="item.url != null">
                         <li class="page-item" :class="{active: item.active}">

@@ -31,6 +31,8 @@ class ModelController extends ApiController
             'table_name' => $request->input('table_name'),
             'description' => $request->input('description', ''),
             'status' => $request->input('status', 0) == 'on' ? 1: 0,
+            'open_category' => $request->input('open_category', 0) == 'on' ? 1: 0,
+            'fields' => $request->input('fields', []),
         ];
 
         $res = $this->service->create($data);
@@ -52,6 +54,7 @@ class ModelController extends ApiController
             'table_name' => $request->input('table_name'),
             'description' => $request->input('description', ''),
             'status' => $request->input('status', 0) == 'on' ? 1: 0,
+            'open_category' => $request->input('open_category', 0) == 'on' ? 1: 0,
         ];
 
         $res = $this->service->update($id, $data);
@@ -86,6 +89,19 @@ class ModelController extends ApiController
         $perPage = $request->input('per_page', 15);
 
         $res = $this->service->list($params, $perPage);
+
+        return $this->response()->withSuccess($res);
+    }
+
+    /**
+     * 详情
+     *
+     * @param Model\DeleteRequest $request
+     * @return JsonResponse
+     */
+    public function delete(Model\DeleteRequest $request): JsonResponse
+    {
+        $res = $this->service->delete($request->input('ids'));
 
         return $this->response()->withSuccess($res);
     }

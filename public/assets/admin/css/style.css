@@ -174,6 +174,9 @@ main{
     align-content:space-around;
 }
 /*公用部分*/
+.hidden{
+    display:none;
+}
 #pagination ul.pagination{
     justify-content: right!important;
 }

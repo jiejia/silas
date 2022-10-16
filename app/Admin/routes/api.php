@@ -8,11 +8,12 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'admin'], function ($route
     Route::post('/auth/refresh', [Api\AuthController::class, 'refresh']);
     Route::post('/auth/me', [Api\AuthController::class, 'me']);
 
-    // 模型
+    // 模型管理
     Route::post('/model/create', [Api\ModelController::class, 'create']);
     Route::post('/model/update/{id}', [Api\ModelController::class, 'update']);
     Route::post('/model/list', [Api\ModelController::class, 'list']);
-    Route::post('/model/{id}', [Api\ModelController::class, 'detail']);
+    Route::post('/model/{id}', [Api\ModelController::class, 'detail'])->where('id', '[0-9]+');;
+    Route::post('/model/delete', [Api\ModelController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'admin'], function ($route) {

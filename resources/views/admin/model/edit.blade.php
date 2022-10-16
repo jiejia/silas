@@ -5,7 +5,7 @@
     </div>
     <div class="block shadow">
         <form name="form" id="form">
-            <div class="mb-3 form-control-row form-control-row-md">
+            <div class="mb-3 form-control-row form-control-row-sm">
                 <label for="name" class="col-form-label"><span>*</span> 名称 </label>
                 <div class="form-control-wrap">
                     <input type="text" class="form-control" id="name" name="name" placeholder="" :value="detail.name"/>
@@ -32,7 +32,13 @@
             <div class="mb-3 form-control-row">
                 <label for="status" class="col-form-label">是否开启 </label>
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="status" name="status" checked>
+                    <input class="form-check-input" type="checkbox" role="switch" id="status" name="status" :checked="detail.status">
+                </div>
+            </div>
+            <div class="mb-3 form-control-row">
+                <label for="open_category" class="col-form-label">支持分类 </label>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="open_category" name="open_category" :checked="detail.open_category">
                 </div>
             </div>
             <div class="mb-3 form-control-row">

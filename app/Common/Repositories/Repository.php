@@ -60,7 +60,7 @@ abstract class Repository
     }
 
     /**
-     * 查询多少记录
+     * 查询多条记录
      *
      * @param array $conditions
      * @param array $columns
@@ -147,11 +147,11 @@ abstract class Repository
     /**
      * 按id删除
      *
-     * @param $id
+     * @param $ids
      * @return mixed
      */
-    public function delete($id): mixed
+    public function delete($ids): mixed
     {
-        return $this->model::find($id)->delete();
+        return $this->model::whereIn('id', $ids)->delete();
     }
 }

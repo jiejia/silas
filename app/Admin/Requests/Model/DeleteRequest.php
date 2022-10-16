@@ -5,7 +5,7 @@ namespace App\Admin\Requests\Model;
 use App\Common\Requests\Request;
 use Illuminate\Validation\Rule;
 
-class UpdateRequest extends Request
+class DeleteRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,11 +16,8 @@ class UpdateRequest extends Request
     {
         return [
             //
-            'name' => ['required', 'between:2,50', Rule::unique('sila_models')->ignore($this->id)],
-            'table_name' => ['required', 'between:2,30', Rule::unique('sila_models')->ignore($this->id)],
-            'description' => ['max:255'],
-            'status' => ['in:on'],
-            'open_category' => ['in:on'],
+            'ids' => [ 'required', 'array'],
+            'ids.*' => ['required', 'exists:sila_models,id']
         ];
     }
 
