@@ -23,6 +23,7 @@ class ModelController extends ApiController
      *
      * @param Model\CreateRequest $request
      * @return JsonResponse
+     * @throws \Exception
      */
     public function create(Model\CreateRequest $request): JsonResponse
     {

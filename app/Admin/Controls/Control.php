@@ -1,6 +1,7 @@
 <?php
 namespace App\Admin\Controls;
 
+use App\Admin\Services\TableService;
 use Exception;
 
 abstract class Control
@@ -25,8 +26,12 @@ abstract class Control
 
     protected mixed $config;
 
-    public function __construct($fieldName, $length, $validRule, $validMsg, $comment, $isNull, $default, $config = [])
+    protected TableService $tableService;
+
+
+    public function __construct(TableService $tableService, $fieldName, $length, $validRule, $validMsg, $comment, $isNull, $default, $config = [])
     {
+        $this->tableService = $tableService;
         $this->fieldName = $fieldName;
         $this->length = $length;
         $this->validRule = $validRule;
@@ -35,19 +40,26 @@ abstract class Control
         $this->isNull = ($isNull != 1) ? 'IS NULL' : 'IS NOT NULL';
         $this->default = $default ? "DEFAULT $default" : '';
         $this->config = $config;
+
+        $this->init();
     }
 
-    abstract public function createField($tableName);
+    abstract protected function init();
 
     /**
      * @throws Exception
      */
-    public static function factory($type, $fieldName, $length, $validRule, $validMsg, $comment, $isNull, $default, $config)
+    public static function factory($tableService, $type, $fieldName, $length, $validRule, $validMsg, $comment, $isNull, $default, $config)
     {
         $controlName = "App\Admin\Controls\\" . ucfirst($type) . 'Control';
         if (! class_exists($controlName)) {
             throw new Exception("控件{$controlName}不存在");
         }
-        return new $controlName($fieldName, $length, $validRule, $validMsg, $comment, $isNull, $default, $config);
+        return new $controlName($tableService, $fieldName, $length, $validRule, $validMsg, $comment, $isNull, $default, $config);
+    }
+
+    public function createField(): array
+    {
+        return $this->tableService->createField($this->fieldName, $this->dataType, $this->length, $this->isNull, $this->default);
     }
 }

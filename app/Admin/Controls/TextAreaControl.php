@@ -4,9 +4,9 @@ namespace App\Admin\Controls;
 use App\Admin\Services\TableService;
 use Illuminate\Support\Facades\DB;
 
-class TextControl extends Control
+class TextAreaControl extends Control
 {
-    protected const TYPE_NAME = 'text';
+    protected const TYPE_NAME = 'textarea';
 
     protected mixed $dataType = 'varchar';
 

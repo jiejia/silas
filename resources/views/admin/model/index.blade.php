@@ -58,6 +58,7 @@
         </nav>
     </div>
 @endsection()
+
 @section('menu')
     <div class="menu-item">
         <a href="#" class="menu-item-link"><span>模型</span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
@@ -66,8 +67,8 @@
             <li><a href="{{ url('/admin/model/add') }}">添加</a></li>
         </ul>
     </div>
-
 @endsection
+
 @section('script')
 <script type="text/javascript">
     $(function(){

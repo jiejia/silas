@@ -91,7 +91,8 @@
                     "city": [],
                     "color": [],
                     "file": [],
-                }
+                },
+                listForm: {}
             }
         },
         created() {
@@ -179,7 +180,7 @@
                     data: this.listSearchParams,
                     success: function(res, status){
                         if (res.code == 200) {
-                            for (let k in res.data.links)   {
+                            for (let k in res.data.links)  {
                                 res.data.links[k]['label'] = entityToString(res.data.links[k]['label'])
                             }
                             vm.listData = res.data
@@ -203,6 +204,7 @@
                     stop: function(){
                     }
                 })
+                return vm.detail
             },
             deleteItems(link, ids) {
                 if (! confirm("确定删除吗?"))
@@ -220,7 +222,11 @@
                     stop: function(){
                     }
                 })
+            },
+            hideValidMsg(e) {
+                $(e.currentTarget).next().hide()
             }
+
             @yield('methods')
         }
     });

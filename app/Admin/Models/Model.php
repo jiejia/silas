@@ -4,6 +4,7 @@ namespace App\Admin\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as BaseModel;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -20,4 +21,12 @@ class Model extends BaseModel
     protected $table = 'sila_models';
 
     protected $fillable = ['name', 'table_name', 'description', 'status'];
+
+    /**
+     * @return HasMany
+     */
+    public function fields(): HasMany
+    {
+        return $this->hasMany(ModelField::class, 'model_id', 'id');
+    }
 }

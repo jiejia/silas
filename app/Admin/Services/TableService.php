@@ -7,7 +7,7 @@ class TableService
 {
     protected string $tableName = '';
 
-    protected const MODEL_TABLE_PREFIX = 'm_';
+    protected const MODEL_TABLE_PREFIX = 'content_';
 
     public function __construct($tableName)
     {
@@ -24,5 +24,20 @@ class TableService
         DB::select("DROP TABLE IF EXISTS `{$this->tableName}`;");
 
         return DB::select("   CREATE TABLE `{$this->tableName}` (`id` int NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '主键 ID') ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+    }
+
+    /**
+     * 创建字段
+     *
+     * @param $fieldName
+     * @param $dataType
+     * @param $length
+     * @param $isNull
+     * @param $default
+     * @return array
+     */
+    public function createField($fieldName, $dataType, $length, $isNull, $default): array
+    {
+        return DB::select("alter table `{$this->tableName}` Add column `{$fieldName}` {$dataType}({$length}) {$isNull} {$default};");
     }
 }

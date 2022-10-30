@@ -4,15 +4,16 @@ namespace App\Admin\Controls;
 use App\Admin\Services\TableService;
 use Illuminate\Support\Facades\DB;
 
-class TextControl extends Control
+class SwitchControl extends Control
 {
-    protected const TYPE_NAME = 'text';
+    protected const TYPE_NAME = 'switch';
 
-    protected mixed $dataType = 'varchar';
+    protected mixed $dataType = 'tinyint';
 
     protected function init()
     {
         $this->isNull = ($this->isNull != 1) ? 'NULL' : 'NOT NULL';
-        $this->default = $this->default ? "DEFAULT {$this->default}" : '';
+        $this->default = $this->default ? "DEFAULT {$this->default}" : 0;
+        $this->length = 1;
     }
 }

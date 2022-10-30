@@ -48,9 +48,24 @@ class ModelService extends Service
         $tableService = new TableService($data['table_name']);
         $tableService->createTable();
         foreach ($data['fields'] as $v) {
-            $control = Control::factory($v['form_control'], $v['table_field_name'], $v['length'], $v['valid_rule'], $v['valid_msg'], $v['comments'], $v['is_null'], $v['default'], $v['config']);
+            $control = Control::factory($tableService, $v['form_control'], $v['table_field_name'], $v['length'], $v['valid_rule'], $v['valid_msg'], $v['comments'], $v['is_null'], $v['default'], $v['config']);
             $control->createField($data['table_name']);
         }
+
+        return $model;
+    }
+
+    /**
+     * 详情
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function detail($id): mixed
+    {
+        $model = $this->repository->find($id);
+
+        $model->fields;
 
         return $model;
     }
