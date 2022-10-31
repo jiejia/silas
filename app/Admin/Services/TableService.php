@@ -40,4 +40,20 @@ class TableService
     {
         return DB::select("alter table `{$this->tableName}` Add column `{$fieldName}` {$dataType}({$length}) {$isNull} {$default};");
     }
+
+    /**
+     * 更新字段
+     *
+     * @param $oldTableFieldName
+     * @param $fieldName
+     * @param $dataType
+     * @param $length
+     * @param $isNull
+     * @param $default
+     * @return array
+     */
+    public function updateField($oldTableFieldName, $fieldName, $dataType, $length, $isNull, $default): array
+    {
+        return DB::select("alter table `{$this->tableName}` CHANGE  column `$oldTableFieldName` `{$fieldName}` {$dataType}({$length}) {$isNull} {$default};");
+    }
 }

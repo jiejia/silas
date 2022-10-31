@@ -49,12 +49,12 @@
             </div>
     </div>
 
-    <div v-for="(item, index) in listForm.controls" class="block shadow mb-3">
-        <div style="font-size:20px;font-weight:bold">@{{ index + 1 }}</div>
+    <div v-for="(item, index) in detail.fields" class="block shadow mb-3">
+        <div style="font-size:20px;font-weight:bold">@{{ index + 1 }} <input v-if="item.id" type="hidden" :name="'fields[' + index + '][id]'" :value="item.id"/></div>
         <div class="row mb-2">
             <div class="col-md-3 form-control-wrap">
                 <label class="form-label">控件类型 <span>*</span></label>
-                <select class="form-select" aria-label="Default select example" :name="'fields[' + index + '][form_control]'" onchange="switchControl(this)">
+                <select class="form-select" v-model="item.form_control" aria-label="Default select example" :name="'fields[' + index + '][form_control]'" :id="'fields_' + index + '_table_field_name'" onchange="switchControl(this)">
                     <option value="text">文本行</option>
                     <option value="textarea">文本框</option>
                     <option value="editor">富文本编辑器</option>
@@ -71,39 +71,39 @@
             </div>
             <div class="col-md-3 form-control-wrap">
                 <label class="form-label">字段名称 <span>*</span></label>
-                <input type="text" class="form-control"  @click="hideValidMsg($event)" :name="'fields[' + index + '][name]'" :id="'fields_' + index + '_name'"/>
+                <input type="text" class="form-control"  @click="hideValidMsg($event)" :name="'fields[' + index + '][name]'" :id="'fields_' + index + '_name'" :value="item.name"/>
                 <span class="form-control-msg"></span>
             </div>
             <div class="col-md-3 form-control-wrap">
                 <label  class="form-label">表字段名 <span>*</span></label>
-                <input type="text" class="form-control" @click="hideValidMsg($event)" :name="'fields[' + index + '][table_field_name]'" :id="'fields_' + index + '_table_field_name'"/>
+                <input type="text" class="form-control" @click="hideValidMsg($event)" :name="'fields[' + index + '][table_field_name]'" :id="'fields_' + index + '_table_field_name'" :value="item.table_field_name"/>
                 <span class="form-control-msg"></span>
             </div>
             <div class="col-md-3">
                 <label class="form-label">描述</label>
-                <input type="text" class="form-control" :name="'fields[' + index + '][comments]'" :id="'fields_' + index + '_comments'"/>
+                <input type="text" class="form-control" :name="'fields[' + index + '][comments]'" :id="'fields_' + index + '_comments'" :value="item.comments"/>
             </div>
             <div class="col-md-3">
                 <label class="form-label">是否可为空 <span>*</span></label>
-                <select class="form-select" :name="'fields[' + index + '][is_null]'" :id="'fields_' + index + '_is_null'" onchange="switchControl(this)">
+                <select class="form-select" v-model="item.is_null" :name="'fields[' + index + '][is_null]'" :id="'fields_' + index + '_is_null'" onchange="switchControl(this)">
                     <option value="1" selected>是</option>
                     <option value="0">否</option>
                 </select>
             </div>
             <div class="col-md-3">
                 <label class="form-label">默认值</label>
-                <input type="text" class="form-control" :name="'fields[' + index + '][default]'" :id="'fields_' + index + '_default'"/>
+                <input type="text" class="form-control" :name="'fields[' + index + '][default]'" :id="'fields_' + index + '_default'" :value="item.default"/>
             </div>
         </div>
 
         <div class="row mb-3">
             <div class="col-md-3">
                 <label class="form-label">长度</label>
-                <input type="number" class="form-control" :name="'fields[' + index + '][length]'" :id="'fields_' + index + '_length'" data-config-name="length" value="10"/>
+                <input type="number" class="form-control" :name="'fields[' + index + '][length]'" :id="'fields_' + index + '_length'" data-config-name="length" :value="item.length"/>
             </div>
             <div class="col-md-3">
                 <label class="form-label">选择正则</label>
-                <select class="form-select form-control" aria-label="Default select example" data-config-name="valid_rule" :name="'fields[' + index + '][valid_rule]'" :id="'fields_' + index + '_valid_rule'">
+                <select class="form-select form-control" v-model="item.valid_rule" aria-label="Default select example" data-config-name="valid_rule" :name="'fields[' + index + '][valid_rule]'" :id="'fields_' + index + '_valid_rule'">
                     <option selected>无</option>
                     <option value="1">Email</option>
                     <option value="1">手机号</option>
@@ -113,48 +113,48 @@
             </div>
             <div class="col-md-3">
                 <label class="form-label">自定义正则</label>
-                <input type="text" class="form-control" :name="'fields[' + index + '][valid_rule]'" :id="'fields_' + index + '_valid_rule'" data-config-name="valid_rule"/>
+                <input type="text" class="form-control" :name="'fields[' + index + '][valid_rule]'" :id="'fields_' + index + '_valid_rule'" data-config-name="valid_rule" :value="item.valid_rule"/>
             </div>
             <div class="col-md-3">
                 <label class="form-label">输入格式提示</label>
-                <input type="text" class="form-control" :name="'fields[' + index + '][valid_msg]'" :id="'fields_' + index + '_valid_msg'" data-config-name="valid_msg"/>
+                <input type="text" class="form-control" :name="'fields[' + index + '][valid_msg]'" :id="'fields_' + index + '_valid_msg'" data-config-name="valid_msg" :value="item.valid_msg"/>
             </div>
 
             <div class="col-md-3 hidden">
                 <label class="form-label">类型</label>
-                <select class="form-select form-control" aria-label="Default select example" :name="'fields[' + index + '][config][select_type]'" :id="'fields_' + index + '_config.select_type'" data-config-name="select_type">
+                <select class="form-select form-control" aria-label="Default select example" v-model="item.config.select_type" :name="'fields[' + index + '][config][select_type]'" :id="'fields_' + index + '_config.select_type'" data-config-name="select_type">
                     <option value="single">单选</option>
                     <option value="multiple">多选</option>
                 </select>
             </div>
             <div class="col-md-3 hidden">
                 <label class="form-label">选项来源</label>
-                <select class="form-select form-control" aria-label="Default select example" :name="'fields[' + index + '][config][select_source]'" :id="'fields_' + index + '_config.select_source'" data-config-name="select_source">
+                <select class="form-select form-control" aria-label="Default select example" v-model="item.config.select_source" :name="'fields[' + index + '][config][select_source]'" :id="'fields_' + index + '_config.select_source'" data-config-name="select_source">
                     <option value="source">填写</option>
                     <option value="url">远程url</option>
                 </select>
             </div>
             <div class="col-md-6 hidden">
                 <label class="form-label">选项值/描述</label>
-                <textarea class="form-control" id="description" :name="'fields[' + index + '][config][select_options]'" :id="'fields_' + index + '_config_select_options'" rows="3" maxlength="255" data-config-name="select_options" placeholder="值:描述"></textarea>
+                <textarea class="form-control" :name="'fields[' + index + '][config][select_options]'" :id="'fields_' + index + '_config_select_options'" rows="3" maxlength="255" data-config-name="select_options" placeholder="值:描述">@{{ item.config.select_options }}}</textarea>
             </div>
             <div class="col-md-6 hidden">
                 <label class="form-label">选项值/描述</label>
-                <input type="text" class="form-control" :name="'fields[' + index + '][config][select_options_url]'" :id="'fields_' + index + '_config_select_options_url'" value="" data-config-name="select_options_url"/>
+                <input type="text" class="form-control" :name="'fields[' + index + '][config][select_options_url]'" :id="'fields_' + index + '_config_select_options_url'" value="" data-config-name="select_options_url" :value="item.config.select_options_url"/>
             </div>
 
             <div class="col-md-3 hidden">
                 <label class="form-label">行</label>
-                <input type="number" class="form-control" :name="'fields[' + index + '][config][rows]'" :id="'fields_' + index + '_config_rows'" value="10" data-config-name="rows"/>
+                <input type="number" class="form-control" :name="'fields[' + index + '][config][rows]'" :id="'fields_' + index + '_config_rows'" value="10" data-config-name="rows" :value="item.config.rows"/>
             </div>
             <div class="col-md-3 hidden">
                 <label class="form-label">列</label>
-                <input type="number" class="form-control" :name="'fields[' + index + '][config][cols]'" :id="'fields_' + index + '_config_cols'" value="10" data-config-name="cols"/>
+                <input type="number" class="form-control" :name="'fields[' + index + '][config][cols]'" :id="'fields_' + index + '_config_cols'" value="10" data-config-name="cols" :value="item.config.cols"/>
             </div>
 
             <div class="col-md-3 hidden">
                 <label class="form-label">日期格式</label>
-                <input type="text" class="form-control" :name="'fields[' + index + '][config][date_format]'" :id="'fields_' + index + '_config_date_format'" value="Y-m-d H:i:s" data-config-name="date_format"/>
+                <input type="text" class="form-control" :name="'fields[' + index + '][config][date_format]'" :id="'fields_' + index + '_config_date_format'" value="Y-m-d H:i:s" data-config-name="date_format" :value="item.config.date_format"/>
             </div>
         </div>
         <div class="d-grid  col-1 mx-auto" style="text-align: right">
@@ -195,9 +195,7 @@
             "file": [],
         }
         $(function(){
-            vm.listForm.controls = []
-            let detail = vm.getDetail("{{ url('/api/admin/model/') . '/'. $id}}");
-            console.log(detail)
+            vm.getDetail("{{ url('/api/admin/model/') . '/'. $id}}");
 
             $('#submit').bind('click', function() {
                 // 前端验证
@@ -242,7 +240,14 @@
 
         // 添加元素
         $('.add-field').bind('click', function(){
-            vm.listForm.controls.push({});
+            vm.detail.fields.push({
+                "name": "",
+                "form_control": "text",
+                "config": {
+                    "select_type": "single",
+                    "select_source": "source",
+                }
+            });
         })
 
         // 删除字段

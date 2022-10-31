@@ -2,6 +2,7 @@
 namespace App\Admin\Controllers\Api;
 
 use App\Common\Controllers\ApiController;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use App\Admin\Requests\Model;
 use App\Admin\Services\ModelService;
@@ -23,7 +24,7 @@ class ModelController extends ApiController
      *
      * @param Model\CreateRequest $request
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function create(Model\CreateRequest $request): JsonResponse
     {
@@ -47,6 +48,7 @@ class ModelController extends ApiController
      * @param Model\UpdateRequest $request
      * @param $id
      * @return JsonResponse
+     * @throws Exception
      */
     public function update(Model\UpdateRequest $request, $id): JsonResponse
     {
@@ -56,6 +58,7 @@ class ModelController extends ApiController
             'description' => $request->input('description', ''),
             'status' => $request->input('status', 0) == 'on' ? 1: 0,
             'open_category' => $request->input('open_category', 0) == 'on' ? 1: 0,
+            'fields' => $request->input('fields', []),
         ];
 
         $res = $this->service->update($id, $data);

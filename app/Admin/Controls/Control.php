@@ -62,4 +62,9 @@ abstract class Control
     {
         return $this->tableService->createField($this->fieldName, $this->dataType, $this->length, $this->isNull, $this->default);
     }
+
+    public function updateField($oldTableFieldName): array
+    {
+        return $this->tableService->updateField($oldTableFieldName, $this->fieldName, $this->dataType, $this->length, $this->isNull, $this->default);
+    }
 }
