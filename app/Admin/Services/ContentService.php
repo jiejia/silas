@@ -10,11 +10,26 @@ use Illuminate\Support\Facades\DB;
 use App\Admin\Controls\Control;
 
 /**
- * 模型服务类
+ * 内容服务类
  */
-class ModelService extends Service
+class ContentService extends Service
 {
     protected string $repositoryClassName = ModelRepository::class;
+
+    /**
+     * 获取菜单
+     *
+     * @return array
+     */
+    public function getNav(): array
+    {
+        $models = $this->repository->findWhere(['status' => 1], ['id', 'name', 'table_name', 'description', 'open_category']);
+        if (! $models) {
+            return [];
+        }
+
+        return $models->toArray();
+    }
 
     /**
      * 创建
@@ -163,5 +178,27 @@ class ModelService extends Service
         $model->fields;
 
         return $model;
+    }
+
+    /**
+     * 获取模型信息
+     *
+     * @param $perPage
+     * @param $tableName
+     * @return array
+     */
+    public function getList($perPage, $tableName): array
+    {
+        $model = $this->repository->findOne(['table_name' => $tableName]);
+
+        if (! $model) {
+            return [];
+        }
+
+        $tableService = new TableService($tableName);
+
+        $pagination = $tableService->pagination()->toArray();
+
+        return array_merge($pagination, ['fields' => $model->fields]);
     }
 }

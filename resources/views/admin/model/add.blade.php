@@ -177,6 +177,13 @@
             <li><a href="{{ url('/admin/model/add') }}" class="active">添加</a></li>
         </ul>
     </div>
+    <div class="menu-item">
+        <a href="#" class="menu-item-link"><span>分类</span><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+        <ul class="sub-menu">
+            <li><a href="{{ url('/admin/category') }}">列表</a></li>
+            <li><a href="{{ url('/admin/category/add') }}">添加</a></li>
+        </ul>
+    </div>
 @endsection
 @section('script')
 <script>

@@ -28,6 +28,18 @@ abstract class Repository
     }
 
     /**
+     * 查询一条记录
+     *
+     * @param array $conditions
+     * @param array $columns
+     * @return mixed
+     */
+    public function findOne(array $conditions = [], array $columns = ['*']): mixed
+    {
+        return $this->model::query()->select($columns)->where($conditions)->first();
+    }
+
+    /**
      * 获取多条记录
      *
      * @param array $conditions

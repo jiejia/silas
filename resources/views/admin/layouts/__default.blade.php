@@ -22,7 +22,7 @@
         <div id="nav">
             <ul>
                 <li><a href="{{ url('/admin') }}"@if($currentNav == 'home') class="active"@endif>首页</a></li>
-                <li><a href="{{ url('/admin/content') }}"@if($currentNav == 'content') class="active"@endif>内容管理</a></li>
+                <li><a href="{{ url('/admin/content_posts') }}"@if($currentNav == 'content') class="active"@endif>内容管理</a></li>
                 <li><a href="{{ url('/admin/model') }}"@if($currentNav == 'model') class="active"@endif>模型管理</a></li>
                 <li><a href="{{ url('/admin/setting') }}"@if($currentNav == 'setting') class="active"@endif>设置</a></li>
             </ul>
@@ -76,6 +76,7 @@
                 silaUser: null,
                 silaToken: null,
                 listData: {},
+                listFields: [],
                 listSearchParams: {},
                 pagination: [],
                 detail: {},
@@ -92,7 +93,8 @@
                     "color": [],
                     "file": [],
                 },
-                listForm: {}
+                listForm: {},
+                nav: []
             }
         },
         created() {
@@ -111,7 +113,7 @@
                 headers: {
                     Authorization: "Bearer " + this.silaToken
                 },
-                error: function(res, status){
+                error: function(res, status) {
                     // 没有权限默认跳转到登录页面
                     if (res.status == 401) {
                         localStorage.clear()
@@ -169,8 +171,23 @@
                 }
             })
             @yield('mounted')
+            console.log($('#fields_0_form_control').attr('id'));
         },
         methods: {
+            // 获取列表
+            getNav(link) {
+                $.ajax({
+                    url: link,
+                    method: 'post',
+                    success: function(res, status){
+                        if (res.code == 200) {
+                            vm.nav = res.data
+                        }
+                    },
+                    stop: function(){
+                    }
+                })
+            },
             // 获取列表
             getList(link) {
                 this.listSearchParams.per_page = $("#per-page").val()

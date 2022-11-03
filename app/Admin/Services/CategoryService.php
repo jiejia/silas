@@ -1,20 +1,20 @@
 <?php
 namespace App\Admin\Services;
 
-use App\Admin\Repositories\ModelFieldRepository;
-use App\Common\Services\Service;
 use App\Admin\Repositories\ModelRepository;
+use App\Common\Services\Service;
+use App\Admin\Repositories\CategoryRepository;
 use App\Exceptions\ValidationException;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Admin\Controls\Control;
 
 /**
- * 模型服务类
+ * 分类服务类
  */
-class ModelService extends Service
+class CategoryService extends Service
 {
-    protected string $repositoryClassName = ModelRepository::class;
+    protected string $repositoryClassName = CategoryRepository::class;
 
     /**
      * 创建
@@ -163,5 +163,21 @@ class ModelService extends Service
         $model->fields;
 
         return $model;
+    }
+
+    /**
+     * @param $perPage
+     * @param $modelName
+     * @return array
+     */
+    public function getList($perPage, $modelName)
+    {
+        $model = app(ModelRepository::class)->findOne(['table_name' => $modelName]);
+
+        if (! $model) {
+            return [];
+        }
+
+        return $this->repository->findWhere(['model_id' => $model->id]);
     }
 }

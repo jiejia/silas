@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('sila_categories', function (Blueprint $table) {
             $table->id();
             $table->integer('model_id')->unsigned()->comment('所属模型');
+            $table->string('model_name')->comment('模型名');
             $table->string('name')->comment('分类名');
             $table->string('slug')->comment('英文名');
             $table->integer('parent_id')->unsigned()->comment('父分类 ID');
-            $table->string('img')->comment('分类图片');
+            $table->string('cover')->comment('分类图片');
             $table->integer('status')->unsigned()->comment('状态(1=开启, 0=隐藏)');
             $table->softDeletes();
             $table->timestamps();
