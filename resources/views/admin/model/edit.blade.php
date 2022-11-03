@@ -54,7 +54,7 @@
         <div class="row mb-2">
             <div class="col-md-3 form-control-wrap">
                 <label class="form-label">控件类型 <span>*</span></label>
-                <select class="form-select" v-model="item.form_control" aria-label="Default select example" :name="'fields[' + index + '][form_control]'" :id="'fields_' + index + '_table_field_name'" onchange="switchControl(this)">
+                <select class="form-select" v-model="item.form_control" aria-label="Default select example" :name="'fields[' + index + '][form_control]'" :id="'fields_' + index + '_form_control'" onchange="switchControl(this)">
                     <option value="text">文本行</option>
                     <option value="textarea">文本框</option>
                     <option value="editor">富文本编辑器</option>
@@ -136,7 +136,7 @@
             </div>
             <div class="col-md-6 hidden">
                 <label class="form-label">选项值/描述</label>
-                <textarea class="form-control" :name="'fields[' + index + '][config][select_options]'" :id="'fields_' + index + '_config_select_options'" rows="3" maxlength="255" data-config-name="select_options" placeholder="值:描述">@{{ item.config.select_options }}}</textarea>
+                <textarea class="form-control" :name="'fields[' + index + '][config][select_options]'" :id="'fields_' + index + '_config_select_options'" rows="3" maxlength="255" data-config-name="select_options" placeholder="值:描述">@{{ item.config.select_options }}</textarea>
             </div>
             <div class="col-md-6 hidden">
                 <label class="form-label">选项值/描述</label>
@@ -221,8 +221,9 @@
                     success: function (res, status) {
                         // 验证失败
                         if (res.code == 422 && res.errors) {
-                            $.each(res.errors, function (k, v) {
-                                $('#' + k).next().text(v).show();
+                            $.each(res.errors, function(k,v){
+                                k = k.replaceAll(".", '_')
+                                $('#' + k).next().text(v[0]).show();
                             })
                             // 登录失败
                         } else if (res.code == 200) {
@@ -243,6 +244,8 @@
             vm.detail.fields.push({
                 "name": "",
                 "form_control": "text",
+                "length": 10,
+                "is_null": 1,
                 "config": {
                     "select_type": "single",
                     "select_source": "source",
@@ -255,12 +258,12 @@
         {
             $(obj).parent().parent().remove()
         }
+
         // 控件类型切换
-        function switchControl(obj){
+        function switchControl(obj)
+        {
             let configs = controls[$(obj).val()]
-            console.log(configs)
             $(obj).parent().parent().next().children().find(".form-control").each(function(i, v){
-                console.log($(v).attr('data-config-name'))
                 if (! configs.includes($(v).attr('data-config-name'))) {
                     $(v).parent().hide()
                 } else {
