@@ -6,7 +6,7 @@ use App\Common\Controllers\ApiController;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Admin\Requests\Model;
+use App\Admin\Requests\Category;
 
 class CategoryController extends ApiController
 {
@@ -23,19 +23,19 @@ class CategoryController extends ApiController
     /**
      * 创建
      *
-     * @param Model\CreateRequest $request
+     * @param Category\CreateRequest $request
      * @return JsonResponse
      * @throws Exception
      */
-    public function create(Model\CreateRequest $request): JsonResponse
+    public function create(Category\CreateRequest $request): JsonResponse
     {
         $data = [
+            'model_id' => $request->input('model_id'),
+            'parent_id' => $request->input('parent_id'),
             'name' => $request->input('name'),
-            'table_name' => $request->input('table_name'),
-            'description' => $request->input('description', ''),
+            'slug' => $request->input('slug'),
+            'cover' => $request->input('cover', ''),
             'status' => $request->input('status', 0) == 'on' ? 1: 0,
-            'open_category' => $request->input('open_category', 0) == 'on' ? 1: 0,
-            'fields' => $request->input('fields', []),
         ];
 
         $res = $this->service->create($data);
@@ -46,12 +46,12 @@ class CategoryController extends ApiController
     /**
      * 更新
      *
-     * @param Model\UpdateRequest $request
+     * @param Category\UpdateRequest $request
      * @param $id
      * @return JsonResponse
      * @throws Exception
      */
-    public function update(Model\UpdateRequest $request, $id): JsonResponse
+    public function update(Category\UpdateRequest $request, $id): JsonResponse
     {
         $data = [
             'name' => $request->input('name'),
@@ -83,11 +83,11 @@ class CategoryController extends ApiController
     /**
      * 列表
      *
-     * @param Model\ListRequest $request
+     * @param Category\ListRequest $request
      * @param $model
      * @return JsonResponse
      */
-    public function list(Model\ListRequest $request, $model): JsonResponse
+    public function list(Category\ListRequest $request, $model): JsonResponse
     {
         $perPage = $request->input('per_page', 15);
 
@@ -99,10 +99,10 @@ class CategoryController extends ApiController
     /**
      * 详情
      *
-     * @param Model\DeleteRequest $request
+     * @param Category\DeleteRequest $request
      * @return JsonResponse
      */
-    public function delete(Model\DeleteRequest $request): JsonResponse
+    public function delete(Category\DeleteRequest $request): JsonResponse
     {
         $res = $this->service->delete($request->input('ids'));
 

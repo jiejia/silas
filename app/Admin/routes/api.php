@@ -24,11 +24,11 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'admin'], function ($route
     Route::post('/content_{model}/delete', [Api\ContentController::class, 'delete']);
 
     // 分类管理
-    Route::post('/category_{model}/create', [Api\CategoryController::class, 'create']);
-    Route::post('/category_{model}/update/{id}', [Api\CategoryController::class, 'update']);
-    Route::post('/category_{model}/list/', [Api\CategoryController::class, 'list']);
-    Route::post('/category_{model}/detail/{id}', [Api\CategoryController::class, 'detail'])->where('id', '[0-9]+');;
-    Route::post('/category_{model}/delete', [Api\CategoryController::class, 'delete']);
+    Route::post('/category/create', [Api\CategoryController::class, 'create']);
+    Route::post('/category/update/{id}', [Api\CategoryController::class, 'update']);
+    Route::post('/category/list/', [Api\CategoryController::class, 'list']);
+    Route::post('/category/detail/{id}', [Api\CategoryController::class, 'detail'])->where('id', '[0-9]+');;
+    Route::post('/category/delete', [Api\CategoryController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'admin'], function ($route) {
